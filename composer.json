@@ -1,0 +1,17 @@
+{
+    "name": "phptools/pgsql-orm",
+    "description": "psql orm",
+    "authors": [
+        {
+            "name": "dimajolkin",
+            "email": "dimajolkin@rambler.ru"
+        }
+    ],
+    "require": {
+        "nilportugues/sql-query-builder": "1.5",
+        "toolsphp/types": "@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.0"
+    }
+}
