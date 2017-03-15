@@ -4,6 +4,7 @@ include __DIR__.'/../vendor/autoload.php';
 use phptools\PgSqlOrm\Entity;
 use phptools\PgSqlOrm\Manager;
 use phptools\PgSqlOrm\Query;
+use phptools\PgSqlOrm\relations\HasOne;
 
 class Post extends Entity {
     protected static $table = 'post';
@@ -12,7 +13,10 @@ class Post extends Entity {
     public $id;
     public $name;
 
-    public static function fields(): array
+    /** @var HasOne */
+    public $post;
+
+    public static function properties(): array
     {
         return [
             'id' => ['type' => 'serial'],
@@ -20,6 +24,17 @@ class Post extends Entity {
         ];
     }
 
+    public static function relations(): array
+    {
+        return [
+            'post' => [HasOne::class, Post::class, 'post_id'],
+        ];
+    }
+
+    public function getPost(): Post
+    {
+        return $this->post->entity();
+    }
 
 }
 

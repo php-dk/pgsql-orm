@@ -38,6 +38,7 @@ class Query
 
     public function andWhere(array $data): self
     {
+
         return $this;
     }
 
