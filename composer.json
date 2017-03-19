@@ -9,7 +9,18 @@
     ],
     "require": {
         "nilportugues/sql-query-builder": "1.5",
-        "toolsphp/types": "@dev"
+        "toolsphp/types": "@dev",
+        "zendframework/zend-servicemanager": "^3.3",
+        "zendframework/zend-di": "^2.6"
+    },
+    "scripts": {
+        "test": "call ./vendor/bin/phpunit  -c ./phpunit.xml"
+    },
+    "autoload": {
+        "psr-4": {
+            "phptools\\PgSqlOrm\\": "src",
+            "phptools\\PgSqlOrm\\tests\\": "tests"
+        }
     },
     "require-dev": {
         "phpunit/phpunit": "6.0"

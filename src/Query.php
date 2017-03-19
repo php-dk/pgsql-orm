@@ -4,10 +4,12 @@ namespace phptools\PgSqlOrm;
 
 use NilPortugues\Sql\QueryBuilder\Builder\GenericBuilder;
 use NilPortugues\Sql\QueryBuilder\Manipulation\AbstractBaseQuery;
+use phptools\PgSqlOrm\db\core\EntityClassName;
+use ToolsPhp\Types\core\ClassName;
 
 class Query
 {
-    /** @var  Entity */
+    /** @var  EntityClassName */
     protected $entity;
 
     /** @var  AbstractBaseQuery */
@@ -15,14 +17,14 @@ class Query
 
     /**
      * Query constructor.
-     * @param Entity $entity
+     * @param EntityClassName $entity
      */
-    public function __construct(Entity $entity)
+    public function __construct(EntityClassName $entity)
     {
         $this->entity = $entity;
         $this->queryBuilder = $this->builder()
             ->select()
-            ->setTable($entity::table());
+            ->setTable($entity->getTableName());
     }
 
     public function builder(): GenericBuilder

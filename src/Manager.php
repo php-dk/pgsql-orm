@@ -10,8 +10,9 @@ class Manager
     /** @var  Connect */
     protected $connect;
 
-    public function getEntityManager(): EntityManager
+
+    public function buildMapper(Entity $entity): Mapper
     {
-        return new EntityManager();
+        return new Mapper($entity, $this->connect);
     }
 }

@@ -2,9 +2,11 @@
 
 namespace phptools\PgSqlOrm;
 
+use phptools\PgSqlOrm\db\core\EntityClassName;
 use phptools\PgSqlOrm\relations\HasMany;
 use phptools\PgSqlOrm\traits\EntityInterface;
 use phptools\PgSqlOrm\traits\EntityTrait;
+use ToolsPhp\Types\core\ClassName;
 use ToolsPhp\Types\TArray;
 use ToolsPhp\Types\trains\TStrictObject;
 
@@ -21,7 +23,7 @@ abstract class Entity extends TStrictObject implements EntityInterface
         return static::$table;
     }
 
-    public static function properties(): array
+    public function properties(): array
     {
         return [
 
@@ -31,16 +33,16 @@ abstract class Entity extends TStrictObject implements EntityInterface
     /**
      * @return array
      */
-    public static function relations(): array
+    public function relations(): array
     {
         return [
-            'post' => [HasMany::class, 'post_id'],
+
         ];
     }
 
     public static function find(): Query
     {
-        return new Query(new static);
+        return new Query(new EntityClassName(static::class));
     }
 
     public function toTArray(): TArray

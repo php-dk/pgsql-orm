@@ -7,24 +7,28 @@ use phptools\PgSqlOrm\Query;
 use phptools\PgSqlOrm\relations\HasOne;
 
 class Post extends Entity {
+
     protected static $table = 'post';
     protected static $query = PostQuery::class;
 
     public $id;
     public $name;
 
-    /** @var HasOne */
+    /** @var static */
     public $post;
 
-    public static function properties(): array
+    public function properties(): array
     {
         return [
             'id' => ['type' => 'serial'],
-            'name' => ['type' => 'text'],
+            'name' => ['type' => 'string'],
+
+            'post_id' => ['type' => 'id', 'fk' => 'post'],
+
         ];
     }
 
-    public static function relations(): array
+    public function relations(): array
     {
         return [
             'post' => [HasOne::class, Post::class, 'post_id'],
@@ -33,7 +37,7 @@ class Post extends Entity {
 
     public function getPost(): Post
     {
-        return $this->post->entity();
+        return $this->post;
     }
 
 }
@@ -42,13 +46,13 @@ class PostQuery extends Query {
 
 }
 
-$entityManager = (new Manager())->getEntityManager();
-
+$postMapper = (new Manager())->buildMapper($post);
 
 //new post
 $post = new Post();
 $post->name = 'hello';
-$entityManager->save($post);
+
+$postMapper->save();
 
 //search
 $newPost = Post::find()->firstByPk($post->id);

@@ -20,6 +20,9 @@ class Post2 implements EntityAggregatorInterface
             ->setProperties([
                 'id' => ['type' => 'serial'],
                 'name' => ['type' => 'text'],
+                'post_id' => ['type' => 'int', 'fk' => 'post'],
+
+                'post' => ['type' => Post::class, 'post.id = post_id']
             ]);
     }
 }
